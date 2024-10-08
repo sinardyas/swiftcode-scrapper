@@ -11,10 +11,19 @@ export type Bank = {
     name: string;
 };
 
-export type Branch = string;
+export type RBranch = string;
+
+export type RSwiftcode = string;
+
+export type Branch = {
+    id: number;
+    city: string;
+    bank: string;
+    country: string;
+}
 
 export type BankWithBranches = Bank & {
-    branches: Branch[]
+    branches: Branch[];
 }
 
 export type CountryWithBanks = Country & { 

@@ -8,6 +8,6 @@ export default defineConfig({
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'swiftcode'
+        database: 'bankswiftcodes'
     }
 })

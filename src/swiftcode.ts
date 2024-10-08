@@ -1,18 +1,11 @@
-import type { RawResponse  } from "./type";
+import type { RawResponse, RSwiftcode, Branch } from "./type";
 import { db } from "./db";
 import { banks as sBanks, countries as sCountries, branches as sBranches, swiftcodes as sSwiftcodes } from "./db/schema";
 import { logger } from "./utils/log";
 import { eq } from "drizzle-orm";
 import ConcurrentManager from "concurrent-manager";
 
-type Branch = {
-    id: number;
-    city: string;
-    bank: string;
-    country: string;
-}
-
-type BranchWithSwiftCode = Branch & { swiftcodes: string[]; }
+type BranchWithSwiftCode = Branch & { swiftcodes: RSwiftcode[]; }
 
 async function fetchSwiftcodes(branch: Branch): Promise<BranchWithSwiftCode> {
     const headers = new Headers();

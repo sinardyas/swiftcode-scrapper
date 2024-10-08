@@ -23,25 +23,25 @@ bun db:migrate
 To fetch country:
 
 ```bash
-bun fetch-country
+bun run fetch-country
 ```
 
 To fetch bank:
 
 ```bash
-bun fetch-bank
+bun run fetch-bank
 ```
 
 To fetch branch:
 
 ```bash
-bun fetch-branch
+bun run fetch-branch
 ```
 
 To fetch swiftcode:
 
 ```bash
-bun fetch-swiftcode
+bun run fetch-swiftcode
 ```
 
 This project was created using `bun init` in bun v1.0.33. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.

@@ -1,4 +1,4 @@
-import { index, int, mysqlTable, bigint, varchar } from 'drizzle-orm/mysql-core';
+import { index, mysqlTable, bigint, varchar } from 'drizzle-orm/mysql-core';
 
 export const countries = mysqlTable('countries', {
   id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
