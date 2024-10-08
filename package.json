@@ -9,7 +9,8 @@
     "db:migrate": "bunx tsx ./src/db/migrate.ts",
     "fetch-country": "bun run src/country.ts",
     "fetch-bank": "bun run src/bank.ts",
-    "fetch-branch": "bun run src/branch.ts"
+    "fetch-branch": "bun run src/branch.ts",
+    "fetch-swiftcode": "bun run src/swiftcode.ts"
   },
   "author": "Sinar Dyas",
   "license": "ISC",
