@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.ts",
   "scripts": {
+    "db:generate": "bun drizzle-kit generate",
+    "db:migrate": "bunx tsx ./src/db/migrate.ts",
     "fetch-country": "bun run src/country.ts",
     "fetch-bank": "bun run src/bank.ts",
     "fetch-branch": "bun run src/branch.ts"
