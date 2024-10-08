@@ -2,37 +2,44 @@ export type RawResponse = {
     value: string;
 }
 
-export interface Country { 
-    code: string; 
+interface Base {
+    id?: number; 
     name: string; 
 }
 
-export type Bank = {
-    name: string;
-};
+export type Country = Base & {
+    code: string; 
+}
+export type Bank = Base;
+export type Branch = Base;
+export type Swiftcode = Base;
 
+export type RCountry = string;
+export type RBank = string;
 export type RBranch = string;
-
 export type RSwiftcode = string;
 
-export type Branch = {
-    id: number;
-    city: string;
-    bank: string;
-    country: string;
+export type CountryWithBanks = Country & {
+    banks: Bank[]
 }
 
 export type BankWithBranches = Bank & {
-    branches: RBranch[];
+    branches: Branch[]
 }
 
-export type CountryWithBanks = Country & { 
-    banks: BankWithBranches[];
+export type BankWithCountryCode = Bank & {
+    countryCode: string;
 }
 
-export type WithId = {
-    id: number
-};
+export type BranchWithCountryAndBank = Branch & {
+    bank: RBank;
+    country: RCountry;
+}
 
-export type CountryWithDbId = Country & WithId;
-export type CountryWithBanksAndDbId = CountryWithBanks & WithId;
+export type BranchWithSwiftcodes = Branch & {
+    swiftcodes: Swiftcode[]
+}
+
+export type BranchWithCountryAndBankAndSwiftCode = BranchWithCountryAndBank & {
+    swiftcodes: Swiftcode[]
+}

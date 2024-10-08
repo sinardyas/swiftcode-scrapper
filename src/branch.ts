@@ -1,14 +1,12 @@
-import type { Bank, BankWithBranches, RawResponse  } from "./type";
+import type { BankWithBranches, BankWithCountryCode, RawResponse } from "./type";
 import { db } from "./db";
 import { banks as sBanks, countries as sCountries, branches as sBranches } from "./db/schema";
 import { logger } from "./utils/log";
 import { eq } from "drizzle-orm";
 import ConcurrentManager from "concurrent-manager";
 
-type BankWithCountryCode = Bank & { countryCode: string; id: number; };
-type BankWithBranchesAndDbId = BankWithBranches & { id: number; }
 
-async function fetchBranches(bank: BankWithCountryCode): Promise<BankWithBranchesAndDbId> {
+async function fetchBranches(bank: BankWithCountryCode): Promise<BankWithBranches> {
     const headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -28,7 +26,7 @@ async function fetchBranches(bank: BankWithCountryCode): Promise<BankWithBranche
     const result = await fetch("https://www.theswiftcodes.com/ajax/code-finder.ajax.php", requestOptions as any);
     const parsedResult: RawResponse[] = await result.json() as RawResponse[];
 
-    const _branches = parsedResult.map(each => each.value);
+    const _branches = parsedResult.map(each => ({name: each.value}));
     logger.info(`> Country Code: ${bank.countryCode} Bank: ${bank.name} :: ${JSON.stringify(_branches, null, 2)}`);
 
     return {
@@ -53,7 +51,7 @@ for (const bank of banks) {
 
 logger.info('> Fetching branches.....');
 const bankWithBranches$ = await apiFetcher.run();
-const bankWithBranches = bankWithBranches$.map(r => r.response) as BankWithBranchesAndDbId[];
+const bankWithBranches = bankWithBranches$.map(r => r.response) as BankWithBranches[];
 logger.info('> Finish fetching branches');
 
 const dbCreator = new ConcurrentManager({
@@ -65,7 +63,7 @@ for (const bank of bankWithBranches) {
     for (const branch of bank.branches) {
         dbCreator.queue(() => db.insert(sBranches).values({
             bankId: bank.id,
-            name: branch,
+            name: branch.name,
         }));
     }
 }

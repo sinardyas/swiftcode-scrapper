@@ -4,10 +4,7 @@ import { db } from "./db";
 import { banks as sBanks, countries as sCountries } from "./db/schema";
 import type { Country, CountryWithBanks, RawResponse  } from "./type";
 
-type CountryWithDbId = Country & { id: number };
-type CountryWithBanksAndDbId = CountryWithBanks & { id: number };
-
-async function fetchBanks(country: CountryWithDbId): Promise<CountryWithBanksAndDbId> {
+async function fetchBanks(country: Country): Promise<CountryWithBanks> {
     const headers = new Headers();
     headers.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -28,13 +25,13 @@ async function fetchBanks(country: CountryWithDbId): Promise<CountryWithBanksAnd
 
     return {
         ...country,
-        banks: parsedResult.map(each => ({name: each.value, branches: []}))
+        banks: parsedResult.map(each => ({name: each.value}))
     }
 }
 
 logger.info('==== Start ====');
 const countries = await db.select({ id: sCountries.id, name: sCountries.name, code: sCountries.code })
-    .from(sCountries) as CountryWithDbId[];
+    .from(sCountries) as Country[];
 
 const apiFetcher = new ConcurrentManager({
     concurrent: 20, // max concurrent process to be run
@@ -47,7 +44,7 @@ for (const country of countries) {
 
 logger.info('> Fetching banks from countries.....');
 const countryWithBank$ = await apiFetcher.run();
-const countryWithBank: CountryWithBanksAndDbId[] = countryWithBank$.map(r => r.response) as CountryWithBanksAndDbId[];
+const countryWithBank: CountryWithBanks[] = countryWithBank$.map(r => r.response) as CountryWithBanks[];
 logger.info(`> Total ${countryWithBank.length} banks successfully fetched`);
 
 
