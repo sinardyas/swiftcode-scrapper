@@ -8,6 +8,13 @@
       "when": 1728294868601,
       "tag": "0000_known_ikaris",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "5",
+      "when": 1728358550960,
+      "tag": "0001_little_red_wolf",
+      "breakpoints": true
     }
   ]
 }

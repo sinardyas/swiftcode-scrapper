@@ -1,11 +1,13 @@
 {
   "name": "swiftcode-scrapper",
   "version": "1.0.0",
-  "description": "Simple tools to scrape Swiftcode from theswiftcode.com web",
+  "description": "Simple tools to scrape Bank Swiftcode from theswiftcode.com web",
   "type": "module",
   "main": "index.ts",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "fetch-country": "bun run src/country.ts",
+    "fetch-bank": "bun run src/bank.ts",
+    "fetch-branch": "bun run src/branch.ts"
   },
   "author": "Sinar Dyas",
   "license": "ISC",

@@ -11,7 +11,7 @@ export const countries = mysqlTable('country', {
 export const banks = mysqlTable('banks', {
   id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
   name: varchar('name', { length: 256 }),
-  countryId: bigint("author_id", { mode: 'number' }).references(() => countries.id)
+  countryId: bigint("country_id", { mode: 'number' }).references(() => countries.id)
 }, (banks) => ({
   nameIdx: index('name_idx').on(banks.name),
 }));
