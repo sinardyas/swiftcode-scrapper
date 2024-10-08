@@ -23,7 +23,7 @@ export type Branch = {
 }
 
 export type BankWithBranches = Bank & {
-    branches: Branch[];
+    branches: RBranch[];
 }
 
 export type CountryWithBanks = Country & { 
