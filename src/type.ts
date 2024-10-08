@@ -20,3 +20,10 @@ export type BankWithBranches = Bank & {
 export type CountryWithBanks = Country & { 
     banks: BankWithBranches[];
 }
+
+export type WithId = {
+    id: number
+};
+
+export type CountryWithDbId = Country & WithId;
+export type CountryWithBanksAndDbId = CountryWithBanks & WithId;
