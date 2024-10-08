@@ -8,22 +8,40 @@ To install dependencies:
 bun install
 ```
 
+To generate migrations:
+
+```bash
+bun db:generate
+```
+
+To run the migrations:
+
+```bash
+bun db:migrate
+```
+
 To fetch country:
 
 ```bash
-bun run src/country.ts
+bun fetch-country
 ```
 
 To fetch bank:
 
 ```bash
-bun run src/bank.ts
+bun fetch-bank
 ```
 
 To fetch branch:
 
 ```bash
-bun run src/branch.ts
+bun fetch-branch
+```
+
+To fetch swiftcode:
+
+```bash
+bun fetch-swiftcode
 ```
 
 This project was created using `bun init` in bun v1.0.33. [Bun](https://bun.sh) is a fast all-in-one JavaScript runtime.
